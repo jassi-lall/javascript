@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button type="button" id="ipButton">
+        What is my ip?
+    </button>
+    <p id="ipDisplay">
+        To display here
+    </p>
+
+    <script>
+        function updateIP(ip) {
+            document.getElementById("ipDisplay").textContent = "IP Address: " + ip;
+        }
+
+        function getIP() {
+            fetch("https://api.ipify.org/?format=json")
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Request failed");
+                }
+            })
+            .then(function (data) {
+                ip = data['ip'];
+               updateIP(ip);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+        }
+
+        document.getElementById('ipButton').addEventListener("click", getIP);
+
+    </script>
+</body>
+</html>
